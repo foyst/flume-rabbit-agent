@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  rabbit1:
+    image: "rabbitmq:3-management"
+    hostname: "rabbit1"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    labels:
+      NAME: "rabbitmq1"
+
+  rabbit2:
+    image: "rabbitmq:3-management"
+    hostname: "rabbit2"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+      RABBITMQ_DEFAULT_VHOST: "/"
+    ports:
+      - "25672:15672"
+      - "6672:5672"
+    labels:
+      NAME: "rabbitmq1"
+
+  flume:
+    image: "flume-rabbit-agent"
+    hostname: "flume1"
+    environment:
+      FLUME_CONF_FILE: /var/tmp/flume.conf
+      FLUME_AGENT_NAME: agent1
+    depends_on:
+      - rabbit1
+      - rabbit2
+    volumes:
+      - ./flume.conf:/var/tmp/flume.conf
+    labels:
+      NAME: "flume1"
