@@ -1,7 +1,7 @@
 # flume-rabbit-agent
 Flume agent with RabbitMQ plugin, based off probablyfine/flume, integrating https://github.com/jcustenborder/flume-ng-rabbitmq plugin
 
-###To run:
+### To run:
 Run ./build.sh to download, compile and package Rabbit module, and to build Flume Docker image with Rabbit module baked in.
 
 Run docker-compose up
